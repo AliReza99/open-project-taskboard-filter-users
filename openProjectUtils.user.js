@@ -9,8 +9,21 @@
 // @grant        none
 // ==/UserScript==
 
+function getFilterParameter() {
+  const url = new URL(window.location);
+  return url.searchParams.get("filter");
+}
+
+function setFilterParameter(filterValue) {
+  const url = new URL(window.location);
+  url.searchParams.set("filter", filterValue);
+  window.history.replaceState({}, "", url);
+}
+
 function initializeTaskboardUtils() {
   let optionsPopulated = false;
+
+  const filterValue = getFilterParameter();
 
   const refreshOptions = () => {
     console.log("refreshing options");
@@ -38,7 +51,7 @@ function initializeTaskboardUtils() {
       value: name,
     }));
 
-    const currentSelection = selectInput.value;
+    const currentSelection = filterValue || selectInput.value;
 
     selectInput.innerHTML = "";
 
@@ -68,18 +81,25 @@ function initializeTaskboardUtils() {
 
   const selectInput = document.createElement("select");
 
-  selectInput.onchange = function () {
-    const v = this.value;
-
+  function hideRowsExcept(v) {
     document
       .querySelectorAll(`tr[class]`)
       .forEach((e) => e.classList.remove("hide"));
 
-    if (v === "All") return;
+    if (v === "All" || !v) return;
 
     document
       .querySelectorAll(`tr[class]:not(:has(a[title*='${v}']))`)
       .forEach((e) => e.classList.add("hide"));
+  }
+
+  hideRowsExcept(filterValue);
+
+  selectInput.onchange = function () {
+    const v = this.value;
+
+    setFilterParameter(v);
+    hideRowsExcept(this.value);
   };
 
   newElement.appendChild(selectInput);
