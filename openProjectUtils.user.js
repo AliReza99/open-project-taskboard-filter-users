@@ -4,12 +4,12 @@
 // @version      2024-08-21
 // @description  will create a box with all of the users so you're be able to filter tasks per specific user
 // @author       Alireza Bahrani
-// @match        https://taskboard.delinternet.com/*/taskboard
+// @match        https://taskboard.delinternet.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=https://www.openproject.org
 // @grant        none
 // ==/UserScript==
 
-(() => {
+function initializeTaskboardUtils() {
   let optionsPopulated = false;
 
   const refreshOptions = () => {
@@ -88,4 +88,27 @@
   refreshOptions();
 
   const refreshInterval = setInterval(refreshOptions, 1000);
+}
+
+function initializeBacklogsUtils() {
+  let isCollapsed = false;
+  function collapseToggles() {
+    const togglers = document.querySelectorAll("#content-body .toggler");
+    if (togglers.length === 0) return;
+    clearInterval(refreshInterval);
+    togglers.forEach((e) => e.click());
+  }
+
+  const refreshInterval = setInterval(collapseToggles, 1000);
+}
+
+(() => {
+  const urlPath = window.location.pathname;
+
+  if (urlPath.endsWith("/taskboard")) {
+    initializeTaskboardUtils();
+  }
+  if (urlPath.endsWith("/backlogs")) {
+    initializeBacklogsUtils();
+  }
 })();
