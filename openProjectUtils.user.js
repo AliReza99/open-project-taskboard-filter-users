@@ -20,6 +20,61 @@ function setFilterParameter(filterValue) {
   window.history.replaceState({}, "", url);
 }
 
+function addStylesToHead(styles) {
+  const styleTag = document.createElement("style");
+  styleTag.innerHTML = styles;
+  document.head.appendChild(styleTag);
+}
+
+function runWithInterval(intervalFn, stopConditionFn, intervalTime = 1000) {
+  const intervalId = setInterval(() => {
+    intervalFn();
+
+    if (stopConditionFn()) {
+      clearInterval(intervalId);
+    }
+  }, intervalTime);
+}
+
+function setTaskboardItemsFullWidth() {
+  runWithInterval(
+    () => {
+      const inputElement = document.querySelector(".toolbar-input-group input");
+
+      console.log(`[called again] `,);
+      
+      if (inputElement) {
+        inputElement.value = "2";
+
+        inputElement.dispatchEvent(
+          new KeyboardEvent("keyup", {
+            key: "Enter",
+            code: "Enter",
+            keyCode: 13, // Deprecated, but still commonly used
+            which: 13, // Deprecated, but still commonly used
+            bubbles: true,
+          })
+        );
+      }
+    },
+    () => {
+      const inputElement = document.querySelector(".toolbar-input-group input");
+      return Boolean(inputElement);
+    }
+  );
+
+  const styles = `
+    .swimlane>div { 
+      width: 100% !important; 
+    }
+    .swimlane>div>div { 
+      width: 100% !important; 
+    }
+  `;
+
+  addStylesToHead(styles);
+}
+
 function initializeTaskboardUtils() {
   let optionsPopulated = false;
 
@@ -127,6 +182,7 @@ function initializeBacklogsUtils() {
 
   if (urlPath.endsWith("/taskboard")) {
     initializeTaskboardUtils();
+    setTaskboardItemsFullWidth();
   }
   if (urlPath.endsWith("/backlogs")) {
     initializeBacklogsUtils();
