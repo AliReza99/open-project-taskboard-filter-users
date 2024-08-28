@@ -81,8 +81,6 @@ function initializeTaskboardUtils() {
   const filterValue = getFilterParameter();
 
   const refreshOptions = () => {
-    console.log("refreshing options");
-
     if (optionsPopulated) {
       clearInterval(refreshInterval);
       return;
@@ -166,7 +164,6 @@ function initializeTaskboardUtils() {
 }
 
 function initializeBacklogsUtils() {
-  let isCollapsed = false;
   function collapseToggles() {
     const togglers = document.querySelectorAll("#content-body .toggler");
     if (togglers.length === 0) return;
