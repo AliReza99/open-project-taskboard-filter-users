@@ -65,10 +65,10 @@ function setTaskboardItemsFullWidth() {
 
   const styles = `
     .swimlane>div { 
-      width: 100% !important; 
+      width: 200px !important; 
     }
     .swimlane>div>div { 
-      width: 100% !important; 
+      width: 190px !important; 
     }
   `;
 
