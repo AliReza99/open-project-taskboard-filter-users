@@ -41,8 +41,6 @@ function setTaskboardItemsFullWidth() {
     () => {
       const inputElement = document.querySelector(".toolbar-input-group input");
 
-      console.log(`[called again] `,);
-      
       if (inputElement) {
         inputElement.value = "2";
 
@@ -73,6 +71,24 @@ function setTaskboardItemsFullWidth() {
   `;
 
   addStylesToHead(styles);
+}
+
+function saveContentBodyScrollPosition() {
+  localStorage.setItem(
+    "contentBodyScrollPosition",
+    document.querySelector("#content-body").scrollTop
+  );
+}
+
+function listenAndSaveContentBodyScrollPosition() {
+  const contentBody = document.querySelector("#content-body");
+  contentBody.addEventListener("scroll", saveContentBodyScrollPosition);
+}
+
+function restoreContentBodyScrollPosition() {
+  const scrollPosition = localStorage.getItem("contentBodyScrollPosition");
+  if (!scrollPosition) return;
+  document.querySelector("#content-body").scrollTo(0, Number(scrollPosition));
 }
 
 function initializeTaskboardUtils() {
@@ -180,6 +196,8 @@ function initializeBacklogsUtils() {
   if (urlPath.endsWith("/taskboard")) {
     initializeTaskboardUtils();
     setTaskboardItemsFullWidth();
+    listenAndSaveContentBodyScrollPosition();
+    restoreContentBodyScrollPosition();
   }
   if (urlPath.endsWith("/backlogs")) {
     initializeBacklogsUtils();
