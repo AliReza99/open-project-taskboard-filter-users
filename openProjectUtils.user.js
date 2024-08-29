@@ -26,6 +26,12 @@ function addStylesToHead(styles) {
   document.head.appendChild(styleTag);
 }
 
+function setTitleForAssignedTo() {
+  document
+    .querySelectorAll("#taskboard td .assigned_to_id .t")
+    .forEach((e) => (e.title = e.innerText));
+}
+
 function runWithInterval(intervalFn, stopConditionFn, intervalTime = 1000) {
   const intervalId = setInterval(() => {
     intervalFn();
@@ -165,7 +171,7 @@ function initializeTaskboardUtils() {
     }
 
     document
-      .querySelectorAll(`tr[class]:not(:has(a[title*='${v}']))`)
+      .querySelectorAll(`tr[class]:not(:has([title*='${v}']))`)
       .forEach((e) => e.classList.add("hide"));
   }
 
@@ -262,6 +268,7 @@ function applyGlobalStyles() {
   applyGlobalStyles();
 
   if (urlPath.endsWith("/taskboard")) {
+    setTitleForAssignedTo();
     initializeTaskboardUtils();
     setTaskboardItemsFullWidth();
     listenAndSaveContentBodyScrollPosition();
