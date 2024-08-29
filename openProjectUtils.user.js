@@ -62,11 +62,11 @@ function setTaskboardItemsFullWidth() {
   );
 
   const styles = `
-    .swimlane>div { 
-      width: 200px !important; 
+    .swimlane>div {
+      width: 200px !important;
     }
-    .swimlane>div>div { 
-      width: 190px !important; 
+    .swimlane>div>div {
+      width: 190px !important;
     }
   `;
 
@@ -190,8 +190,64 @@ function initializeBacklogsUtils() {
   const refreshInterval = setInterval(collapseToggles, 1000);
 }
 
+const globalStyles = `
+  .op-app-header{
+    background: rgba(22, 26, 29, 0.9) !important;
+  }
+  .op-logo{
+    opacity: .4
+  }
+  #taskboard td>div{
+    height: 120px !important;
+    border-radius: 6px;
+  }
+  #taskboard .work_package .id{
+    top: .25rem;
+  }
+  #taskboard .work_package .id, #taskboard .story-bar{
+    background: transparent !important;
+    position: relative;
+  }
+  #taskboard .work_package .subject.editable{
+    margin-top: -1rem;
+    padding-right: 2rem;
+  }
+  .work_package.dark .id a{
+    color: #fff !important;
+  }
+  .work_package.light .id a{
+    color: #000 !important;
+  }
+
+  #taskboard .work_package .assigned_to_id.editable{
+    position: absolute;
+    bottom: .5rem;
+    left: .5rem;
+  }
+  #taskboard .work_package .subject.editable{
+    height: auto;
+    line-height: 1.5;
+  }
+  #taskboard .story-footer{
+    position: absolute;
+    bottom: .5rem;
+    left: .5rem;
+    width: 90%;
+  }
+`;
+
+function applyGlobalStyles() {
+  addStylesToHead(globalStyles);
+
+  const r = document.querySelector(":root");
+  r.style.setProperty("--header-item-font-color", "rgb(159, 173, 188)");
+  r.style.setProperty("--main-menu-font-color", "rgb(159, 173, 188)");
+  r.style.setProperty("--main-menu-bg-color", "rgba(22, 26, 29, 0.9)");
+}
+
 (() => {
   const urlPath = window.location.pathname;
+  applyGlobalStyles();
 
   if (urlPath.endsWith("/taskboard")) {
     initializeTaskboardUtils();
@@ -203,3 +259,4 @@ function initializeBacklogsUtils() {
     initializeBacklogsUtils();
   }
 })();
+
