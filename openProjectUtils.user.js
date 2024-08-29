@@ -115,7 +115,7 @@ function initializeTaskboardUtils() {
       optionsPopulated = true;
     }
 
-    const options = ["All", ...sortedUsers].map((name) => ({
+    const options = ["All", "Unassigned", ...sortedUsers].map((name) => ({
       label: name,
       value: name,
     }));
@@ -157,6 +157,12 @@ function initializeTaskboardUtils() {
       .forEach((e) => e.classList.remove("hide"));
 
     if (v === "All" || !v) return;
+    if (v === "Unassigned") {
+      document
+        .querySelectorAll(`tr[class]:has(a[title])`)
+        .forEach((e) => e.classList.add("hide"));
+      return;
+    }
 
     document
       .querySelectorAll(`tr[class]:not(:has(a[title*='${v}']))`)
