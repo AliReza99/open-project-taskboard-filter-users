@@ -142,9 +142,10 @@ function initializeTaskboardUtils() {
 
   newElement.style.position = "fixed";
   newElement.style.bottom = "10px";
-  newElement.style.right = "10px";
+  newElement.style.right = "1rem";
   newElement.style.width = "200px";
-  newElement.style.padding = "10px";
+  newElement.style.padding = "8px";
+  newElement.style.borderRadius = "4px";
   newElement.style.backgroundColor = "lightgray";
   newElement.style.zIndex = "999999";
 
@@ -233,6 +234,11 @@ const globalStyles = `
     bottom: .5rem;
     left: .5rem;
     width: 90%;
+  }
+  #col_width{
+    opacity: 0;
+    user-select: none;
+    pointer-events: none;
   }
 `;
 
