@@ -224,9 +224,9 @@ const globalStyles = `
     bottom: .5rem;
     left: .5rem;
   }
-  #taskboard .work_package .subject.editable{
-    height: auto;
-    line-height: 1.5;
+  #taskboard .work_package .subject.editable, #taskboard .subject{
+    height: auto !important;
+    line-height: 1.5 !important;
   }
   #taskboard .story-footer{
     position: absolute;
@@ -259,4 +259,3 @@ function applyGlobalStyles() {
     initializeBacklogsUtils();
   }
 })();
-
