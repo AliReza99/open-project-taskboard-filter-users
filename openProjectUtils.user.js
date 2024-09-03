@@ -222,7 +222,9 @@ const globalStyles = `
     position: relative;
   }
   #taskboard .work_package .subject.editable{
-    margin-top: -1rem;
+    position: relative;
+    top: -1.125rem;
+    cursor: pointer;
     padding-right: 2rem;
   }
   .work_package.dark .id a{
