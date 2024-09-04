@@ -70,9 +70,14 @@ function setTaskboardItemsFullWidth() {
   const styles = `
     .swimlane>div {
       width: 200px !important;
+      display: flex;
+      flex-direction: column;
     }
     .swimlane>div>div {
-      width: 190px !important;
+      width: 100% !important;
+    }    
+    .swimlane>div>div.subject {
+      width: 85% !important;
     }
   `;
 
@@ -216,7 +221,6 @@ const globalStyles = `
   }
   #taskboard .work_package .id{
     top: .25rem;
-    z-index: 9;
   }
   #taskboard .work_package .id, #taskboard .story-bar{
     background: transparent !important;
@@ -226,7 +230,6 @@ const globalStyles = `
     position: relative;
     top: -1.125rem;
     cursor: pointer;
-    padding-right: 2rem;
   }
   .work_package.dark .id a{
     color: #fff !important;
