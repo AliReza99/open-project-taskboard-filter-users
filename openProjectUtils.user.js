@@ -216,6 +216,7 @@ const globalStyles = `
   }
   #taskboard .work_package .id{
     top: .25rem;
+    z-index: 9;
   }
   #taskboard .work_package .id, #taskboard .story-bar{
     background: transparent !important;
