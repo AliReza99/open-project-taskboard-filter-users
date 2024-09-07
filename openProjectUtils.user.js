@@ -102,6 +102,21 @@ function restoreContentBodyScrollPosition() {
   document.querySelector("#content-body").scrollTo(0, Number(scrollPosition));
 }
 
+function getStorypointsOfUser(name) {
+  const query =
+    name === "Unassigned"
+      ? `tr[class]:not(:has(a[title])) .story-points`
+      : name === "All"
+      ? "tr[class] .story-points"
+      : `tr[class] .story:has([title*='${name}']) .story-points`;
+
+  return [...document.querySelectorAll(query)]
+    .map((el) => Number(el.innerText))
+    .reduce((pre, current) => {
+      return pre + current;
+    }, 0);
+}
+
 function initializeTaskboardUtils() {
   let optionsPopulated = false;
 
@@ -127,7 +142,7 @@ function initializeTaskboardUtils() {
     }
 
     const options = ["All", "Unassigned", ...sortedUsers].map((name) => ({
-      label: name,
+      label: `${name} (${getStorypointsOfUser(name)})`,
       value: name,
     }));
 
