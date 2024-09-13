@@ -42,7 +42,7 @@ function runWithInterval(intervalFn, stopConditionFn, intervalTime = 1000) {
   }, intervalTime);
 }
 
-function setTaskboardItemsFullWidth() {
+function setTaskBoardItemsFullWidth() {
   runWithInterval(
     () => {
       const inputElement = document.querySelector(".toolbar-input-group input");
@@ -117,7 +117,7 @@ function getStorypointsOfUser(name) {
     }, 0);
 }
 
-function initializeTaskboardUtils() {
+function initializeTaskBoardUtils() {
   let optionsPopulated = false;
 
   const filterValue = getFilterParameter();
@@ -284,18 +284,32 @@ function applyGlobalStyles() {
   r.style.setProperty("--main-menu-bg-color", "rgba(22, 26, 29, 0.9)");
 }
 
+function collapsedWikiElements() {
+  function collapseElements(){
+    const togglers = document.querySelectorAll(".pages-hierarchy .-hierarchy-expanded .tree-menu--hierarchy-span .tree-menu--hierarchy-indicator");
+    if (togglers.length === 0) return;
+    clearInterval(refreshInterval);
+    console.log(togglers)
+    togglers.forEach((e) => e.click());
+  }
+  const refreshInterval = setInterval(collapseElements, 1000);
+}
+
 (() => {
   const urlPath = window.location.pathname;
   applyGlobalStyles();
 
   if (urlPath.endsWith("/taskboard")) {
     setTitleForAssignedTo();
-    initializeTaskboardUtils();
-    setTaskboardItemsFullWidth();
+    initializeTaskBoardUtils();
+    setTaskBoardItemsFullWidth();
     listenAndSaveContentBodyScrollPosition();
     restoreContentBodyScrollPosition();
   }
   if (urlPath.endsWith("/backlogs")) {
     initializeBacklogsUtils();
+  }
+  if(urlPath.endsWith("/wiki")){
+    collapsedWikiElements()
   }
 })();
