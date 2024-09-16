@@ -12,3 +12,6 @@
 
 ### Backlogs
   - Collapse all backlogs containers by default
+
+### Wiki
+  - Collapse all wiki containers by default
