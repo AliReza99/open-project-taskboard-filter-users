@@ -309,7 +309,7 @@ function collapsedWikiElements() {
   if (urlPath.endsWith("/backlogs")) {
     initializeBacklogsUtils();
   }
-  if(urlPath.endsWith("/wiki")){
+  if(urlPath.endsWith("/wiki") || urlPath.includes('/wiki/')){
     collapsedWikiElements()
   }
 })();
