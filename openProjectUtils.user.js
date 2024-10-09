@@ -314,6 +314,13 @@ function collapsedWikiElements() {
   if (urlPath.endsWith("/wiki")) {
     collapsedWikiElements();
   }
+  const regex = /\/work_packages\/(\d+)$/; // matches /work_packages/<number> at the end
+  const match = urlPath.match(regex);
+  if (match) {
+    const newUrl = `${match[0]}/relations`;
+    window.location.href = newUrl;
+    return;
+  }
   if (urlPath.endsWith("/activity")) {
     const params = new URLSearchParams(window.location.search);
     if (params.get("redirect") === "false") {
