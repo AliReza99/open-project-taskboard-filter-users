@@ -285,11 +285,13 @@ function applyGlobalStyles() {
 }
 
 function collapsedWikiElements() {
-  function collapseElements(){
-    const togglers = document.querySelectorAll(".pages-hierarchy .-hierarchy-expanded .tree-menu--hierarchy-span .tree-menu--hierarchy-indicator");
+  function collapseElements() {
+    const togglers = document.querySelectorAll(
+      ".pages-hierarchy .-hierarchy-expanded .tree-menu--hierarchy-span .tree-menu--hierarchy-indicator"
+    );
     if (togglers.length === 0) return;
     clearInterval(refreshInterval);
-    console.log(togglers)
+    console.log(togglers);
     togglers.forEach((e) => e.click());
   }
   const refreshInterval = setInterval(collapseElements, 1000);
@@ -309,7 +311,25 @@ function collapsedWikiElements() {
   if (urlPath.endsWith("/backlogs")) {
     initializeBacklogsUtils();
   }
-  if(urlPath.endsWith("/wiki")){
-    collapsedWikiElements()
+  if (urlPath.endsWith("/wiki")) {
+    collapsedWikiElements();
+  }
+  if (urlPath.endsWith("/activity")) {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("redirect") === "false") {
+      return;
+    }
+
+    const selector = `[data-tab-id="relations"]>a`;
+
+    runWithInterval(
+      () => {
+        document.querySelector(selector)?.click();
+      },
+      () => {
+        const el = document.querySelector(selector);
+        return Boolean(el);
+      }
+    );
   }
 })();
