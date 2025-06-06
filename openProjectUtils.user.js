@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Taskboard utils
 // @namespace    http://tampermonkey.net/
-// @version      2024-08-21
+// @version      2025-06-06
 // @description  will create a box with all of the users so you're be able to filter tasks per specific user
 // @author       Alireza Bahrani
 // @match        https://taskboard.delinternet.com/*
