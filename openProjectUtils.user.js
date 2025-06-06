@@ -7,7 +7,12 @@
 // @match        https://taskboard.delinternet.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=https://www.openproject.org
 // @grant        none
+// @homepageURL  https://github.com/AliReza99/open-project-taskboard-filter-users
+// @supportURL   https://github.com/AliReza99/open-project-taskboard-filter-users/issues
+// @updateURL    https://github.com/AliReza99/open-project-taskboard-filter-users/raw/refs/heads/main/openProjectUtils.user.js
+// @downloadURL  https://github.com/AliReza99/open-project-taskboard-filter-users/raw/refs/heads/main/openProjectUtils.user.js
 // ==/UserScript==
+
 
 function getFilterParameter() {
   const url = new URL(window.location);
