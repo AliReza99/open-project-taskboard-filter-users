@@ -302,6 +302,23 @@ function collapsedWikiElements() {
   const refreshInterval = setInterval(collapseElements, 1000);
 }
 
+function sortOptions() {
+  setInterval(() => {
+    const select = document.querySelector('select.assigned_to_id')
+    if (!select) return
+
+    const options = Array.from(select.options)
+    const sorted = options.sort((a, b) => {
+      const aVal = parseInt(a.value, 10)
+      const bVal = parseInt(b.value, 10)
+      return aVal - bVal
+    })
+
+    select.innerHTML = ''
+    sorted.forEach(option => select.appendChild(option))
+  }, 1000)
+}
+
 (() => {
   const urlPath = window.location.pathname;
   applyGlobalStyles();
@@ -312,6 +329,7 @@ function collapsedWikiElements() {
     setTaskBoardItemsFullWidth();
     listenAndSaveContentBodyScrollPosition();
     restoreContentBodyScrollPosition();
+    sortOptions();
   }
   if (urlPath.endsWith("/backlogs")) {
     initializeBacklogsUtils();
